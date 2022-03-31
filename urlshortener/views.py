@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .models import Shortener
 from .forms import ShortenerForm
-import requests
 
 # Create your views here.
 
