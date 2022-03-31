@@ -136,4 +136,5 @@ STATICFILES_DIRS = (
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 django_on_heroku.settings(locals())
