@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		{% load static %}
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-			rel="stylesheet"
-		/>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Url Shortener</title>
-		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
-	</head>
-	<body>
-		<header>
-			<h1 id="titulo">Url Shortener</h1>
-		</header>
-		<section class="container">
-			<div class="container">
-				<div class="card-form mt-5">
-					<div class="card-header text-center py-3">
-						<h1 id="title">
-							Insert your Url here 👇 <i class="fas fa-link px-2"></i>
-						</h1>
-					</div>
-					<div class="px-3 py-4">
-						<form action="" method="POST">
-							{% csrf_token %}
-							<div class="row g-1">
-								<div class="col-10">{{form.their_url}}</div>
-								<div class="col-2">
-									<button class="btn btn-success btn-lg w-100" type="submit">
-										Shorten
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="alert alert-danger mt-4" role="alert">
-					<p>{{errors}}</p>
-				</div>
-				<div class="mx-auto text-center mt-5">
-					<h2 id="title" class="text-danger">Your shortened Url</h2>
-					<p>New Url 👇</p>
-					<p class="">{{new_url}}</p>
-					<p>
-						<span class="text-danger">Your previous URL:</span> {{their_url}}
-					</p>
-				</div>
-			</div>
-		</section>
-		<footer></footer>
-	</body>
+  <head>
+    {% load static %}
+    <link rel="shortcut icon" type="x-icon" href="{% static 'images/83728.ico' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet"
+        />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Shortener</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1 id="titulo">Url Shortener</h1>
+    </header>
+    <section class="container">
+      <div class="container">
+        <div class="card-form mt-5">
+          <div class="card-header text-center py-3">
+            <h1 id="title">
+              Insert your Url here 👇 <i class="fas fa-link px-2"></i>
+            </h1>
+          </div>
+          <div class="px-3 py-4">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="row g-1">
+                <div class="col-10">{{form.their_url}}</div>
+                <div class="col-2">
+                  <button class="btn btn-success btn-lg w-100" type="submit">
+                    Shorten
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="alert alert-danger mt-4" role="alert">
+          <p>{{errors}}</p>
+        </div>
+        <div class="mx-auto text-center mt-5">
+          <h2 id="title" class="text-danger">Your shortened Url</h2>
+          <p>New Url 👇</p>
+          <p class="">{{new_url}}</p>
+          <p>
+          <span class="text-danger">Your previous URL:</span> {{their_url}}
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer></footer>
+  </body>
 </html>
 
