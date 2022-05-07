@@ -12,14 +12,10 @@ class Shortener(models.Model):
     class Meta:
         ordering = ["-created"]
 
-    def __str(self):
+    def __str__(self):
         return f'from {self.their_url} to {self.my_url}'
 
     def save(self, *args, **kwargs):
         if not self.my_url:
             self.my_url = create_shortened_url(self)
         super().save(*args, **kwargs)
-
-
-
-
