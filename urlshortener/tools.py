@@ -2,7 +2,7 @@ from random import choice
 from django.conf import settings
 from string import ascii_letters, digits
 
-
+#TODO: 200 max only?
 SIZE = getattr(settings, "MAX_URL_CHARACTERS", 7)
 
 AVAILABLE_CHARACTERS = ascii_letters + digits
