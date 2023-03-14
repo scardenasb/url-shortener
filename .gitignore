@@ -5,7 +5,11 @@ __pycache__/
 *.log
 
 .env
-
 .venv/
+env/
+env
 
 core/settings/dev.py
+assets/
+staticfiles/*
+!staticfiles/.gitkeep
