@@ -1,14 +1,16 @@
 from django.db import models
-from .tools import create_shortened_url
+from app.functions import create_shortened_url
+
 # Create your models here.
 
 
 class Shortener(models.Model):
+
     created = models.DateTimeField(auto_now_add=True)
     times_followed = models.PositiveIntegerField(default=0)
     their_url = models.URLField()
     my_url = models.CharField(max_length=15, unique=True, blank=True)
-    
+
     class Meta:
         ordering = ["-created"]
 

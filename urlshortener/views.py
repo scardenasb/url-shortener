@@ -1,48 +1,63 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
+from django.utils.translation import gettext as _
+from django.urls import reverse_lazy
+from django.contrib import messages
 from .models import Shortener
 from .forms import ShortenerForm
-
-# Create your views here.
-
-def home_view(request):
-    template = 'urlshortener/index.html'
-    context = {}
-    context['form'] = ShortenerForm()
-
-    if request.method == 'GET':
-        return render(request, template, context)
-
-    elif request.method == 'POST':
-        used_form = ShortenerForm(request.POST)
-
-        if used_form.is_valid():
-
-            shortened_object = used_form.save()
-
-            new_url = request.build_absolute_uri('/') + shortened_object.my_url
-
-            their_url = shortened_object.their_url
-
-            context['new_url'] = new_url
-            context['their_url'] = their_url
-
-            return render(request, template, context)
-
-        context['errors'] = used_form.errors
-
-        return render(request, template, context)
+from django.views.generic import FormView, RedirectView
 
 
-def redirect_url_view(request, shortened_part):
-    try:
-        shortener = Shortener.objects.get(my_url=shortened_part)
+class UrlCreateView(FormView):
+    form_class = ShortenerForm
+    template_name = 'urlshortener/index.html'
+    success_message = _("Url correcta")
+    success_url = reverse_lazy("urlshortener:home")
 
-        shortener.times_followed += 1
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
-        shortener.save()
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
-        return HttpResponseRedirect(shortener.their_url)
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(UrlCreateView, self).get_form_kwargs(*args, **kwargs)
+        their_url = self.kwargs.get('their_url')
+        kwargs['their_url'] = their_url
+        return kwargs
 
-    except:
-        raise Http404('Link broken 👻')
+    def form_invalid(self, form):
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        cd = form.cleaned_data
+        cd_url = cd.get('their_url')
+        obj = Shortener.objects.create(their_url=cd_url)
+
+        new_url = self.request.build_absolute_uri('/') + obj.my_url
+        context['new_url'] = new_url
+        context['old_url'] = obj.their_url
+        context['form'] = form
+
+        messages.success(self.request, self.success_message)
+        return self.render_to_response(context)
+
+
+class RedirectView(RedirectView):
+
+    template_name = 'urlshortener/index.html'
+    model = Shortener
+
+    def get(self, request, shortened_part, *args, **kwargs):
+        try:
+            shortener = Shortener.objects.get(my_url=shortened_part)
+
+            shortener.times_followed += 1
+
+            shortener.save()
+
+            return HttpResponseRedirect(shortener.their_url)
+
+        except:
+            raise Http404('Link broken 👻')

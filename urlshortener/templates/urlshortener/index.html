@@ -19,10 +19,13 @@
       <h1 id="titulo">Url Shortener</h1>
     </header>
     <section class="container">
+      <div class="alert" role="alert">
+        <p>{{form.errors}}</p>
+      </div>
       <div class="card-form">
         <div class="card-header">
           <h1 id="title" class="card-text">
-            Insert your Url here 👇
+            Insert your Url
           </h1>
         </div>
         <form action="" method="POST">
@@ -35,9 +38,6 @@
           </span>
         </form>
       </div>
-      <div class="alert" role="alert">
-        <p>{{errors}}</p>
-      </div>
       <div class="card-footer">
         <h2 id="title" class="card-text">Your shortened Url</h2>
         <p id="text-new-url">Your new Url 👇</p>
@@ -46,7 +46,7 @@
         <span>Your previous Url 👇</span>
         </p>
         <p class="old-url"> 
-          <i>{{their_url}}</i>
+          <i>{{old_url}}</i>
         </p>
       </div>
     </section>
