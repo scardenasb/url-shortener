@@ -6,6 +6,8 @@ from .models import Shortener
 from .forms import ShortenerForm
 from django.views.generic import FormView, RedirectView
 
+import re
+
 
 class UrlCreateView(FormView):
     form_class = ShortenerForm
@@ -39,6 +41,10 @@ class UrlCreateView(FormView):
         context['new_url'] = new_url
         context['old_url'] = obj.their_url
         context['form'] = form
+
+        # print('='*30)
+        # print(obj.their_url)
+        # print('='*30)
 
         messages.success(self.request, self.success_message)
         return self.render_to_response(context)

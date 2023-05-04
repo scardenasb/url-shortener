@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://*.127.0.0.1']
 
 
-
+MAX_URL_CHARACTERS = 7
 # Application definition
 
 INSTALLED_APPS = [

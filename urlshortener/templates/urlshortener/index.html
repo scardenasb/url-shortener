@@ -19,17 +19,24 @@
       <h1 id="titulo">Url Shortener</h1>
     </header>
     <section class="container">
-      <div class="alert" role="alert">
-        <p>{{form.errors}}</p>
-      </div>
       <div class="card-form">
         <div class="card-header">
           <h1 id="title" class="card-text">
             Insert your Url
           </h1>
         </div>
+        <!--<div class="alert" role="alert">-->
+        <!--  <p>{{form.errors}}</p>-->
+        <!--</div>-->
         <form action="" method="POST">
           {% csrf_token %}
+          {% if form.their_url.errors %}
+             <ul class="errorlist">
+             {% for error in form.their_url.errors %}
+               <b role="alert">{{ error }}</b>
+             {% endfor %}
+             </ul>
+          {% endif %}
           <div>{{form.their_url}}</div>
           <span class="btn">
             <button class="btn" type="submit">
